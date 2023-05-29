@@ -7,6 +7,9 @@ const AllUsers = () => {
         const res = await fetch('http://localhost:5000/users')
         return res.json()
     })
+    const handleMakeAdmin = (id) => {
+        
+    }
     const handleDelete = (user) => {
 
     }
@@ -37,7 +40,7 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{
-                                    user.role === 'admin' ? 'admin' : <button onClick={() => handleDelete(user)} className="btn btn-sm btn-ghost bg-orange-500 text-white"><FaUserShield></FaUserShield></button>
+                                    user.role === 'admin' ? 'admin' : <button onClick={() => handleMakeAdmin(user._id)} className="btn btn-sm btn-ghost bg-orange-500 text-white"><FaUserShield></FaUserShield></button>
                                 }
                                 </td>
                                 <td> <button onClick={() => handleDelete(user)} className="btn btn-sm btn-ghost bg-red-500 text-white"><FaTrashAlt></FaTrashAlt></button></td>
