@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import useCart from '../../../hooks/useCart';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MyCart = () => {
     const { cart, refetch } = useCart()
@@ -18,39 +19,39 @@ const MyCart = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-            //   Swal.fire(
-            //     'Deleted!',
-            //     'Your file has been deleted.',
-            //     'success'
-            //   )
-            fetch(`http://localhost:5000/carts/${item._id}`,{
-                method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.deletedCount > 0){
-                    refetch()
-                    Swal.fire(
-                        'Deleted!',
-                        'Your item has been deleted.',
-                        'success'
-                      )
-                }
-            })
+                //   Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                //   )
+                fetch(`http://localhost:5000/carts/${item._id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch()
+                            Swal.fire(
+                                'Deleted!',
+                                'Your item has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
             }
-          })
+        })
     }
     return (
-        <div className='w-full'>
+        <div className='w-full h-screen'>
             <Helmet>
                 <title>Bistro Boss | My Cart</title>
             </Helmet>
             <div className='uppercase flex font-semibold justify-evenly items-center h-[96px]'>
                 <h3 className='text-3xl'>Total items : {cart.length}</h3>
-                <h3 className='text-3xl'>Total price : ${total}</h3>
-                <button className='btn btn-sm btn-warning'>Pay</button>
+                <h3 className='text-3xl'>Total price : ${total.toFixed(2)}</h3>
+                <Link to='/dashboard/payment'><button className='btn btn-sm btn-warning'>Pay</button> </Link>
             </div>
             {/* table */}
             <div className="overflow-x-auto w-full">
@@ -80,11 +81,11 @@ const MyCart = () => {
                                     </div>
                                 </td>
                                 <td>
-                                {item.name}
-                                   </td>
+                                    {item.name}
+                                </td>
                                 <td className='text-end'>${item.price}</td>
                                 <td>
-                                    <button onClick={()=>handleDelete(item)} className="btn btn-sm btn-ghost bg-red-500 text-white"><FaTrashAlt></FaTrashAlt></button>
+                                    <button onClick={() => handleDelete(item)} className="btn btn-sm btn-ghost bg-red-500 text-white"><FaTrashAlt></FaTrashAlt></button>
                                 </td>
                             </tr>)
                         }
