@@ -8,7 +8,11 @@
 7/ on the server side, install stripe 
 8/ create a payment intent api with paymentmethod types: card 
 make sure to multiply the amount by 100
-
+9/ call payment intent api to get client secret and store it in the state
+10/ use confirmCardPayment api with client secret and card info
+11/ display confirm card  error
+12/ display confirm card success
+13/ do things after payment --->
 
 
 

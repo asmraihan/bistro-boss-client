@@ -3,17 +3,16 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import useAuth from "./useAuth";
 
-
+    // Create a new axios instance.
+    const axiosSecure = axios.create({
+      baseURL: 'http://localhost:5000',
+  })
+  
 // This is the custom hook we will use to create an axios instance with an Authorization header.
 const useAxiosSecure = ()=>{
     // We will use this to log the user out if their token expires.
     const {logOut} = useAuth()
     const navigate = useNavigate()
-
-    // Create a new axios instance.
-    const axiosSecure = axios.create({
-        baseURL: 'http://localhost:5000',
-    })
 
     // Add an interceptor to the axios instance.
     // This will add an Authorization header (token injection) to every request if the user is logged in.

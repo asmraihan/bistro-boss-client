@@ -8,7 +8,7 @@ import useCart from '../../../hooks/useCart';
 // todo provide publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Getway_PK)
 const Payment = () => {
-    const [cart] = useCart()
+    const {cart} = useCart()
     const total = cart.reduce((sum, item) => sum + item.price, 0)
     const price = parseFloat(total).toFixed(2)
     return (
@@ -21,7 +21,7 @@ const Payment = () => {
             <h2 className='text-lg'>ttekaaaa</h2>
 
             <Elements stripe={stripePromise}>
-                <CheckOutForm price={price}></CheckOutForm>
+                <CheckOutForm cart={cart}  price={price}></CheckOutForm>
             </Elements>
 
         </div>
