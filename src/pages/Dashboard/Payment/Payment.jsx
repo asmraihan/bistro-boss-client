@@ -10,7 +10,9 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Getway_PK)
 const Payment = () => {
     const {cart} = useCart()
     const total = cart.reduce((sum, item) => sum + item.price, 0)
-    const price = parseFloat(total).toFixed(2)
+    const price = parseFloat(total.toFixed(2))
+    console.log('debug price',price)
+
     return (
         <div className='w-full h-screen'>
             <SectionTitle
