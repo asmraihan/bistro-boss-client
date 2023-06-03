@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
-import { set } from "react-hook-form";
+import './ChekOutForm.css'
 
 const CheckOutForm = ({cart, price }) => {
     const stripe = useStripe()
@@ -15,11 +15,13 @@ const CheckOutForm = ({cart, price }) => {
     const [transactionId, setTransactionId] = useState('')
 
     useEffect(()=>{
+      if(price > 0){
         axiosSecure.post('/create-payment-intent', {price})
         .then(res=> { /* inside response>data>clientSecret we will get paymentIntent.client_secret form backend */
             // console.log(res.data.clientSecret) 
             setClientSecret(res.data.clientSecret)
         })
+      }
     },[price, axiosSecure])
 
 
@@ -69,16 +71,19 @@ const CheckOutForm = ({cart, price }) => {
                 const payment = {email:user?.email, 
                     transactionId: paymentIntent?.id,
                     price,
+                    date: new Date(),
                     quantity: cart.length,
-                    items: cart.map(item=> item._id),
+                    cartItems: cart.map(item=> item._id),
+                    menuItems: cart.map(item=> item.menuItemId),
+                    status: 'Service Pending',
                     itemNames: cart.map(item=> item.name)
                 } 
                 axiosSecure.post('/payments', payment)
                 .then(res=> {
                     console.log(res.data)
-                    if(res.data.insertedId){
+                    // if(res.data.result.insertedId){
                         // display confirm 
-                    }
+                    // }
                 })
             }
     }
