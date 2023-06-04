@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 
     // Create a new axios instance.
     const axiosSecure = axios.create({
-      baseURL: 'http://localhost:5000',
+      baseURL: 'https://bistro-boss-server-pink-two.vercel.app',
   })
   
 // This is the custom hook we will use to create an axios instance with an Authorization header.

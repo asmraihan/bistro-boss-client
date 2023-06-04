@@ -26,7 +26,7 @@ const MyCart = () => {
                 //     'Your file has been deleted.',
                 //     'success'
                 //   )
-                fetch(`http://localhost:5000/carts/${item._id}`, {
+                fetch(`https://bistro-boss-server-pink-two.vercel.app/carts/${item._id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
